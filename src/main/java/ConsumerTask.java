@@ -14,7 +14,7 @@ import java.util.TimerTask;
 
 public class ConsumerTask extends TimerTask {
     private static final String TOPIC = "schema-changes.inventory";
-    public static KafkaConsumer<String,Object> consumer ;
+    public static KafkaConsumer<String,SerializtionClass> consumer ;
 
     static {
         final Properties props = new Properties();
@@ -38,9 +38,9 @@ public class ConsumerTask extends TimerTask {
 
     @Override
     public void run(){
-        ConsumerRecords<String, Object> records = consumer.poll(Duration.ofMillis(100));
+        ConsumerRecords<String, SerializtionClass> records = consumer.poll(Duration.ofMillis(100));
 
-        for (final ConsumerRecord<String, Object> record : records) {
+        for (final ConsumerRecord<String, SerializtionClass> record : records) {
             final String key = record.key();
             final Object value = record.value();
             System.out.printf("key = %s ----------- value = %s%n", key, value);

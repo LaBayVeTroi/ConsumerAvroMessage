@@ -25,13 +25,13 @@ public class Test {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
         props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
-
-        try (final KafkaConsumer<String, Object> consumer = new KafkaConsumer<>(props)) {
+//
+        try (final KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props)) {
             consumer.subscribe(Collections.singletonList(TOPIC));
 
             while (true) {
-                ConsumerRecords<String, Object> records = consumer.poll(Duration.ofMillis(100));
-                for (ConsumerRecord<String, Object> record : records) {
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+                for (ConsumerRecord<String, String> record : records) {
                     String key = record.key();
                     Object value = record.value();
                     System.out.printf("key = %s --------------- value = %s%n", key, value);
